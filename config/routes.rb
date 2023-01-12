@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
   
+  resources :item_categories
+  resources :items
+  resources :categories
+  resources :locations
   resources :users
 
   # get to /users user#index
