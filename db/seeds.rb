@@ -44,7 +44,4 @@ ItemCategory.create(item_id: passport.id, category_id: paperwork.id)
 ItemCategory.create(item_id: controller.id, category_id: electronics.id)
 ItemCategory.create(item_id: ring.id, category_id: valuables.id)
 
-
-
-
 puts "👍"
