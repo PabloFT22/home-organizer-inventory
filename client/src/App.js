@@ -5,27 +5,67 @@ import {useState, useEffect} from 'react';
 
 function App() {
 
-  fetch("/users")
-  .then(response => response.json())
-  .then(console.log)
+const [userLogin, setUserLogin] = useState(
+  {
+    email: "",
+    password: ""
+  }
+)
+console.log(userLogin)
 
+
+const [loggedInUser, setLoggedInUser] = useState(null)
+console.log(loggedInUser)
+
+
+const handleChange=(e)=>{
+  console.log(e)
+  setUserLogin({...userLogin, [e.target.name]: e.target.value})
+}
+
+const handleLoginSubmit=(e)=> {
+  e.preventDefault()
+
+    console.log("🙌 BYEBUG")
+  fetch("/login", 
+  {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(userLogin)
+  })
+  .then(response => response.json())
+  .then(loggedIn => {
+    console.log(loggedIn)
+    setLoggedInUser(loggedIn)
+  })
+
+}
+ 
 
 
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+
+        {loggedInUser ? <h3>What's good, {loggedInUser.name} ?!</h3> : <></>}
+        <h1>Welcome! login!!</h1>
+        <br/>
+        <form onSubmit={handleLoginSubmit}>
+          <input type="text" placeholder="email" onChange={handleChange} name="email"/>
+          <input type="password" placeholder="password" onChange={handleChange} name="password"/>
+          <input type="submit" value="login" />
+        </form>
+
+
+
+
+        <h2>Sign up?</h2>
+
+
+
+
+
       </header>
     </div>
   );

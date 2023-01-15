@@ -4,9 +4,9 @@ class UsersController < ApplicationController
 
 # dry up this code
 
-# def index
-#     render json: User.all
-# end
+def index
+    render json: User.all
+end
 
 def show
     user = User.find_by!(id: params[:id])

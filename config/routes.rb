@@ -5,15 +5,19 @@ Rails.application.routes.draw do
   resources :categories
   resources :locations
 
-  resources :users, except: :index
+  # resources :users, except: :index
 
-  # resources :users
+  resources :users
 
   # get "/users", to: "users#index"
   # get "/users/:id", to: "users#show" 
   # post "/users", to: "users#create"
   # patch "/users/:id", to: "users#update"
   # delete "/users/:id", to: "users#destroy"
+
+  post "/login", to: "application#login"
+
+
 
   # Routing logic: fallback requests for React Router.
   # Leave this here to help deploy your app later!
