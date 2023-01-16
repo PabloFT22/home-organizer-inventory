@@ -8,59 +8,70 @@ function App() {
   const [loggedInUser, setLoggedInUser] = useState(null)
   console.log(loggedInUser)
 
-useEffect(
-  ()=>{
+  useEffect(
+    ()=>{
 
-    console.log("🙌 BYEBUG")
-    fetch("/userInSession")
-    .then(res=>res.json())
-    .then(userAlreadyLoggedIn => {setLoggedInUser(userAlreadyLoggedIn)})
+      // console.log("🙌 BYEBUG")
+      fetch("/userInSession")
+      .then(res=>res.json())
+      .then(userAlreadyLoggedIn => {setLoggedInUser(userAlreadyLoggedIn)})
+    }
+    ,[]
+  )
+
+
+  const [userLogin, setUserLogin] = useState(
+    {
+      email: "",
+      password: ""
+    }
+  )
+  console.log(userLogin)
+
+
+
+  const handleChange=(e)=>{
+    console.log(e)
+    setUserLogin({...userLogin, [e.target.name]: e.target.value})
   }
-  ,[]
-)
 
+  const handleLoginSubmit=(e)=> {
+    e.preventDefault()
 
-const [userLogin, setUserLogin] = useState(
-  {
-    email: "",
-    password: ""
+      // console.log("🙌 BYEBUG")
+    fetch("/login", 
+    {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(userLogin)
+    })
+    .then(response => response.json())
+    .then(loggedIn => {
+      console.log(loggedIn)
+      setLoggedInUser(loggedIn)
+    })
+
   }
-)
-console.log(userLogin)
-
-
-
-const handleChange=(e)=>{
-  console.log(e)
-  setUserLogin({...userLogin, [e.target.name]: e.target.value})
-}
-
-const handleLoginSubmit=(e)=> {
-  e.preventDefault()
-
-    console.log("🙌 BYEBUG")
-  fetch("/login", 
-  {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify(userLogin)
-  })
-  .then(response => response.json())
-  .then(loggedIn => {
-    console.log(loggedIn)
-    setLoggedInUser(loggedIn)
-  })
-
-}
  
-
+  const handleLogOut =()=>{
+    fetch("/logout", {method: "DELETE"})
+    .then(r=> r.json())
+    .then(deleteResponse =>{setLoggedInUser(null)})
+  }
 
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
 
-        {loggedInUser ? <h3>What's good, {loggedInUser.name} ?!</h3> : <></>}
+        {loggedInUser ? 
+        (
+          <>
+            <h3>What's good, {loggedInUser.name} ?!</h3> 
+            <button onClick={handleLogOut}>Logout</button> 
+          </>
+        )
+        : <></>}
         <h1>Welcome! login!!</h1>
         <br/>
         <form onSubmit={handleLoginSubmit}>

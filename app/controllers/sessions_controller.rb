@@ -1,6 +1,4 @@
 class SessionsController < ApplicationController 
-
-include ActionController::Cookies
     
 def create
     # def login
@@ -19,11 +17,15 @@ def create
     end
 end
 
+def destroy
+    session.delete(:user_id) 
+    render json: {}
+end
+
 def get_logged_in_user
     user = User.find_by(id: session[:user_id])
     render json: user
     # byebug
-
 end
 
 end
