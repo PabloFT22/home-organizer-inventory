@@ -5,6 +5,21 @@ import {useState, useEffect} from 'react';
 
 function App() {
 
+  const [loggedInUser, setLoggedInUser] = useState(null)
+  console.log(loggedInUser)
+
+useEffect(
+  ()=>{
+
+    console.log("🙌 BYEBUG")
+    fetch("/userInSession")
+    .then(res=>res.json())
+    .then(userAlreadyLoggedIn => {setLoggedInUser(userAlreadyLoggedIn)})
+  }
+  ,[]
+)
+
+
 const [userLogin, setUserLogin] = useState(
   {
     email: "",
@@ -13,9 +28,6 @@ const [userLogin, setUserLogin] = useState(
 )
 console.log(userLogin)
 
-
-const [loggedInUser, setLoggedInUser] = useState(null)
-console.log(loggedInUser)
 
 
 const handleChange=(e)=>{

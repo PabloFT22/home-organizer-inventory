@@ -15,7 +15,9 @@ Rails.application.routes.draw do
   # patch "/users/:id", to: "users#update"
   # delete "/users/:id", to: "users#destroy"
 
-  post "/login", to: "application#login"
+  # post "/login", to: "application#login"
+  post "/login", to: "sessions#create"
+  get "/userInSession", to: "sessions#get_logged_in_user"
 
 
 
