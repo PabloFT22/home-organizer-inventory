@@ -8,13 +8,23 @@ function App() {
   const [loggedInUser, setLoggedInUser] = useState(null)
   console.log(loggedInUser)
 
+  const [loggedInUserLocations, setLoggedInUserLocations] = useState([])
+  console.log(loggedInUserLocations)
+
   useEffect(
     ()=>{
 
       // console.log("🙌 BYEBUG")
       fetch("/userInSession")
       .then(res=>res.json())
-      .then(userAlreadyLoggedIn => {setLoggedInUser(userAlreadyLoggedIn)})
+      .then(userAlreadyLoggedIn => {
+        setLoggedInUser(userAlreadyLoggedIn)
+        setLoggedInUserLocations(userAlreadyLoggedIn.locations)
+      })
+
+      // fetch("/locations")  // may  need to change this to room/location
+      // .then(r => r.json)
+      // .then(console.log)
     }
     ,[]
   )
@@ -69,6 +79,9 @@ function App() {
           <>
             <h3>What's good, {loggedInUser.name} ?!</h3> 
             <button onClick={handleLogOut}>Logout</button> 
+            {loggedInUserLocations.map((eachLocation)=>{
+              return(<h4>{eachLocation.name}</h4>)
+            })}
           </>
         )
         : <></>}

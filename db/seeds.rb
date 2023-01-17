@@ -16,7 +16,7 @@ User.destroy_all
 puts "🤞"
 
 pablo = User.create(name: "Pablo Fuentes", email: "pablo@gmail.com", address: "123 One Rd. Baltimore, MD, 21212", password: "12345")
-becki = User.create(name: "Becki Volz", email: "becki@gmail.com", address: "123 One Rd. Baltimore, MD, 21212", password: "12345")
+becki = User.create(name: "Becki V", email: "becki@gmail.com", address: "123 One Rd. Baltimore, MD, 21212", password: "12345")
 
 kitchenware = Category.create(name: "Kitchenware")
 bedbath = Category.create(name: "Bed and Bath")
