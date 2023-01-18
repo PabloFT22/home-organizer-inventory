@@ -82,6 +82,23 @@ function App() {
     updateNewLocationInfo({...newLocation, name: e.target.value})
   }
 
+  const submitHandlerNewLocation=(e)=>{
+    e.preventDefault()
+    fetch("/locations", {
+      method: "POST",
+      headers: {"Content-Type": "Application/json"},
+      body: JSON.stringify(newLocation)
+    })
+    .then(r=>r.json())
+    .then(newLocationFromBackend =>{
+      setLoggedInUserLocations([...loggedInUserLocations, newLocationFromBackend])
+      updateNewLocationInfo({
+        name: ""
+      })
+    })
+    // .then(console.log)
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -105,9 +122,9 @@ function App() {
           <input type="submit" value="login" />
         </form></>)}
 
-        <form onSubmit={()=>{}}>
-          <input onChange={changeHandlerNewLocationName} name="name"/>
-          {/* <input/> */}
+        <form onSubmit={submitHandlerNewLocation}>
+          <input onChange={changeHandlerNewLocationName} name="name" value={newLocation.name}/>
+          <input type="submit"/>
         </form>
 
 
