@@ -6,8 +6,10 @@ Rails.application.routes.draw do
   resources :locations
 
   # resources :users, except: :index
-
   resources :users
+
+  # Custom user route- not RESTful
+  get "/fresh_bath_of_user_locations", to: "users#my_locations"
 
   # get "/users", to: "users#index"
   # get "/users/:id", to: "users#show" 

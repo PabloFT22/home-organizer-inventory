@@ -91,10 +91,22 @@ function App() {
     })
     .then(r=>r.json())
     .then(newLocationFromBackend =>{
-      setLoggedInUserLocations([...loggedInUserLocations, newLocationFromBackend])
-      updateNewLocationInfo({
-        name: ""
-      })
+
+      fetch("/fresh_bath_of_user_locations")
+      .then(r => r.json())
+      .then(freshBatchOfLocations => setLoggedInUserLocations(freshBatchOfLocations))
+
+        updateNewLocationInfo({
+          name: ""
+        })
+
+      // ------------- Using response from backend -------------
+        // setLoggedInUserLocations([...loggedInUserLocations, newLocationFromBackend])
+        // updateNewLocationInfo({
+        //   name: ""
+        // })
+      // ------------- Using response from backend -------------
+
     })
     // .then(console.log)
   }

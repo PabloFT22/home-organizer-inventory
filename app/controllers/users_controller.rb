@@ -38,6 +38,13 @@ def destroy
     head :no_content
 end
 
+# custom controller action
+
+def my_locations
+    logged_in_user = User.find_by(id: session[:user_id])
+    render json: logged_in_user.locations
+end
+
 
 private
 
