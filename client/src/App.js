@@ -59,6 +59,7 @@ function App() {
     .then(loggedIn => {
       console.log(loggedIn)
       setLoggedInUser(loggedIn)
+      setLoggedInUserLocations(loggedIn.locations)
     })
 
   }
@@ -66,7 +67,19 @@ function App() {
   const handleLogOut =()=>{
     fetch("/logout", {method: "DELETE"})
     .then(r=> r.json())
-    .then(deleteResponse =>{setLoggedInUser(null)})
+    .then(deleteResponse =>{
+      setLoggedInUser(null)
+      setLoggedInUserLocations([])
+    })
+  }
+
+  const [newLocation, updateNewLocationInfo] = useState({
+    name: ""
+  })
+  console.log(newLocation)
+  
+  const changeHandlerNewLocationName=(e)=>{
+    updateNewLocationInfo({...newLocation, name: e.target.value})
   }
 
   return (
@@ -84,16 +97,18 @@ function App() {
             })}
           </>
         )
-        : <></>}
-        <h1>Welcome! login!!</h1>
+        : (<><h1>Welcome! login!!</h1>
         <br/>
         <form onSubmit={handleLoginSubmit}>
           <input type="text" placeholder="email" onChange={handleChange} name="email"/>
           <input type="password" placeholder="password" onChange={handleChange} name="password"/>
           <input type="submit" value="login" />
+        </form></>)}
+
+        <form onSubmit={()=>{}}>
+          <input onChange={changeHandlerNewLocationName} name="name"/>
+          {/* <input/> */}
         </form>
-
-
 
 
         <h2>Sign up?</h2>
