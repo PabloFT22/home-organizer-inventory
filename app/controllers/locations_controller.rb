@@ -3,6 +3,10 @@ class LocationsController < ApplicationController
         render json: Location.all
     end
 
+    def show_items
+        render json: Location.find(params[:id]).items
+    end
+
     def create
         # byebug
         logged_in_user = User.find_by(id: session[:user_id])

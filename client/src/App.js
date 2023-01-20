@@ -1,18 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
-
+import { Route, Routes } from "react-router-dom"
 import {useState, useEffect} from 'react';
+import Home from './Home';
+import Login from './Login';
+import Locations from './Locations';
+import { useNavigate } from 'react-router-dom'
+import Items from './Items';
+import OneLocation from './OneLocation';
+import Nav from './Nav';
 
 function App() {
 
   const [loggedInUser, setLoggedInUser] = useState(null)
   // console.log(loggedInUser)
-
   const [loggedInUserLocations, setLoggedInUserLocations] = useState([])
   // console.log(loggedInUserLocations)
+  const [loggedInUserItems, setLoggedInUserItemss] = useState([])
+  
 
-  // const [allTheCategories, setAllTheCategories] = useState([])
-  // // console.log(allTheCategories)
+  let navigate = useNavigate();
 
   useEffect(
     ()=>{
@@ -21,29 +27,21 @@ function App() {
       fetch("/userInSession")
       .then(res=>res.json())
       .then(userAlreadyLoggedIn => {
-        setLoggedInUser(userAlreadyLoggedIn)
-        setLoggedInUserLocations(userAlreadyLoggedIn.locations)
+        console.log(userAlreadyLoggedIn)
+        if (userAlreadyLoggedIn) { 
+          setLoggedInUser(userAlreadyLoggedIn)
+          setLoggedInUserLocations(userAlreadyLoggedIn.locations)
+          setLoggedInUserItemss(userAlreadyLoggedIn.items)
+        } else
+        {console.log("no one is logged in")}
+      
       })
+    
+      // console.log(setLoggedInUserLocations)
 
-      // fetch("/categories") 
-      // .then(r => r.json())
-      // .then(setAllTheCategories) // setAllTheCategories
-
-      // fetch("/locations")  // may  need to change this to room/location
-      // .then(r => r.json)
-      // .then(console.log)
     }
     ,[]
   )
-
-  
-  // fetch("/categories") 
-  // .then(res=>res.json())
-  // .then(console.log)
-  // console.log(allTheCategories)
-  
-  // console.log(allTheCategories)
-
 
   const [userLogin, setUserLogin] = useState(
     {
@@ -52,7 +50,6 @@ function App() {
     }
   )
   // console.log(userLogin)
-
 
 
   const handleChange=(e)=>{
@@ -75,8 +72,8 @@ function App() {
       // console.log(loggedIn)
       setLoggedInUser(loggedIn)
       setLoggedInUserLocations(loggedIn.locations)
+      navigate("/locations")
     })
-
   }
  
   const handleLogOut =()=>{
@@ -85,6 +82,7 @@ function App() {
     .then(deleteResponse =>{
       setLoggedInUser(null)
       setLoggedInUserLocations([])
+      navigate("/login")
     })
   }
 
@@ -108,105 +106,33 @@ function App() {
     .then(newLocationFromBackend =>{
 
       fetch("/fresh_bath_of_user_locations")
-      .then(r => r.json())
-      .then(freshBatchOfLocations => setLoggedInUserLocations(freshBatchOfLocations))
+        .then(r => r.json())
+        .then(freshBatchOfLocations => setLoggedInUserLocations(freshBatchOfLocations))
 
         updateNewLocationInfo({
           name: ""
         })
 
-      // ------------- Using response from backend -------------
-        // setLoggedInUserLocations([...loggedInUserLocations, newLocationFromBackend])
-        // updateNewLocationInfo({
-        //   name: ""
-        // })
-      // ------------- Using response from backend -------------
-
     })
-    // .then(console.log)
   }
 
-  ///////// dropdown join model post request methods
-
-  // const [newUserItem, updateNewUserItem] = useState({
-  //   name: "",
-  //   description: "",
-  //   image_url: "",
-  //   location_in_room: "",
-  //   user_id: "",
-  //   location_id: ""
-  // })
-
-  // const handleSubmitForItemCreate =(e)=>{
-  //   e.preventDefault()
-
-
-  // }
-
-  // const changeHandler
-
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
 
-        {loggedInUser ? 
-        (
-          <>
-            <h3>What's good, {loggedInUser.name} ?!</h3> 
-            <button onClick={handleLogOut}>Logout</button> 
-            {loggedInUserLocations.map((eachLocation)=>{
-              return(<h4>{eachLocation.name}</h4>)
-            })}
-            {/* <form onSubmit={()=>{}}>
-              <select>
-                <option value={0}>Select Location</option>
-                {
-                loggedInUserLocations.map(( eachLocation)=>{
-                  return(<option value={eachLocation.id}>{eachLocation.name}</option>)
-                })
-                }
-              </select>
-                <input onChange={()=>{}}/>
-              <select>
-                <option value={0}>Select Category</option>
-                {
-                  allTheCategories.map((eachCategory)=>{
-                    return(<option value={eachCategory.id}>{eachCategory.name}</option>)
-                  })
-                }
-              </select> 
-              <br/>
-              <input type="submit"/>
-            </form> */}
+    <> 
+      <Nav loggedInUser={loggedInUser}/>
 
-          </>
-        )
-        : (<><h1>Welcome! login!!</h1>
-        <br/>
-        <form onSubmit={handleLoginSubmit}>
-          <input type="text" placeholder="email" onChange={handleChange} name="email"/>
-          <input type="password" placeholder="password" onChange={handleChange} name="password"/>
-          <input type="submit" value="login" />
-        </form></>)}
+      <Routes>
+        <Route path="/login" element={<Login handleChange={handleChange} handleLoginSubmit={handleLoginSubmit}/>} />
+        <Route path="/locations" element={<Locations handleLogOut={handleLogOut} loggedInUserLocations={loggedInUserLocations} loggedInUser={loggedInUser} submitHandlerNewLocation={submitHandlerNewLocation} changeHandlerNewLocationName={changeHandlerNewLocationName} newLocation={newLocation}/>}>
+          <Route path=":id" element={<OneLocation />} />
+        </Route>
+        {/* <Route path="/locations" element={allLocationsOfOneUser}/> */}
+        <Route path="/items" element={<Items loggedInUserItems={loggedInUserItems}/>}/>
+        <Route exact path="/" element={<Home />} />
+        
+      </Routes>
+    </>
 
-            {/* cant seem to move this without breaking */}
-        <form onSubmit={submitHandlerNewLocation}>
-          <label>Add Location</label>
-          <input onChange={changeHandlerNewLocationName} name="name" value={newLocation.name}/>
-          <input type="submit"/>
-        </form>
-
-
-        <h2>Sign up?</h2>
-
-
-
-
-
-      </header>
-    </div>
   );
 }
 
