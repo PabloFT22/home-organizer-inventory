@@ -14,7 +14,7 @@ function App() {
   const [loggedInUser, setLoggedInUser] = useState(null)
   // console.log(loggedInUser)
   const [loggedInUserLocations, setLoggedInUserLocations] = useState([])
-  console.log(loggedInUserLocations)
+  // console.log(loggedInUserLocations)
   const [loggedInUserItems, setLoggedInUserItemss] = useState([])
   
 
@@ -27,7 +27,7 @@ function App() {
       fetch("/userInSession")
       .then(res=>res.json())
       .then(userAlreadyLoggedIn => {
-        console.log(userAlreadyLoggedIn)
+        // console.log(userAlreadyLoggedIn)
         if (userAlreadyLoggedIn) { 
           setLoggedInUser(userAlreadyLoggedIn)
           setLoggedInUserLocations(userAlreadyLoggedIn.locations)

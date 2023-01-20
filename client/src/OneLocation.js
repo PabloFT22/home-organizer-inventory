@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
+
 import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom';
 
 function OneLocation({loggedInUser}) {
     const {id} = useParams()
 
-    console.log(loggedInUser.locations)
+    // console.log(loggedInUser.locations)
 
     const userItems = loggedInUser.items.filter((eachItem)=>{
         return parseInt(eachItem.location_id) === parseInt(id)
@@ -18,14 +18,12 @@ function OneLocation({loggedInUser}) {
     })
     // console.log(userItems)
 
-    const userLocations = loggedInUser.locations.filter((eachLocation)=>{
-        return parseInt(eachLocation.location_id) === parseInt(id)
+    const userLocation = loggedInUser.locations.filter((location)=>{
+        return parseInt(location.id) === parseInt(id)
     })
-    // console.log(userLocations)
+    // console.log(userLocation[0].name)
 
-    const LocationArray = userLocations.map((location)=>{
-        return (<p>{location.name}</p>)
-    })
+    const clickedLocation = userLocation[0].name
 
     return (
         <>
@@ -35,7 +33,7 @@ function OneLocation({loggedInUser}) {
             </Link>
         </div>
         
-        <div>{LocationArray}</div>
+        <h1>{clickedLocation}</h1>
         <ul>{itemArray}</ul>
         </>
     )
