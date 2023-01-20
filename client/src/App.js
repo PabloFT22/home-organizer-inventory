@@ -14,7 +14,7 @@ function App() {
   const [loggedInUser, setLoggedInUser] = useState(null)
   // console.log(loggedInUser)
   const [loggedInUserLocations, setLoggedInUserLocations] = useState([])
-  // console.log(loggedInUserLocations)
+  console.log(loggedInUserLocations)
   const [loggedInUserItems, setLoggedInUserItemss] = useState([])
   
 
@@ -116,6 +116,9 @@ function App() {
     })
   }
 
+  // if (!loggedInUser){
+  //   return null
+  // }
   return (
 
     <> 
@@ -123,9 +126,13 @@ function App() {
 
       <Routes>
         <Route path="/login" element={<Login handleChange={handleChange} handleLoginSubmit={handleLoginSubmit}/>} />
-        <Route path="/locations" element={<Locations handleLogOut={handleLogOut} loggedInUserLocations={loggedInUserLocations} loggedInUser={loggedInUser} submitHandlerNewLocation={submitHandlerNewLocation} changeHandlerNewLocationName={changeHandlerNewLocationName} newLocation={newLocation}/>}>
+        {/* <Route path="/locations" element={<Locations handleLogOut={handleLogOut} loggedInUserLocations={loggedInUserLocations} loggedInUser={loggedInUser} submitHandlerNewLocation={submitHandlerNewLocation} changeHandlerNewLocationName={changeHandlerNewLocationName} newLocation={newLocation}/>}>
           <Route path=":id" element={<OneLocation />} />
-        </Route>
+        </Route> */}
+        {loggedInUser && <Route path="/locations">
+          <Route index element={<Locations handleLogOut={handleLogOut} loggedInUserLocations={loggedInUserLocations} loggedInUser={loggedInUser} submitHandlerNewLocation={submitHandlerNewLocation} changeHandlerNewLocationName={changeHandlerNewLocationName} newLocation={newLocation}/>}/>
+          <Route path=":id" element={<OneLocation loggedInUser={loggedInUser} />} />
+        </Route>}
         {/* <Route path="/locations" element={allLocationsOfOneUser}/> */}
         <Route path="/items" element={<Items loggedInUserItems={loggedInUserItems}/>}/>
         <Route exact path="/" element={<Home />} />
@@ -134,6 +141,7 @@ function App() {
     </>
 
   );
+    
 }
 
 export default App;

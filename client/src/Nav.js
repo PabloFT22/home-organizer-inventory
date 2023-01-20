@@ -4,7 +4,7 @@ function Nav(loggedInUser) {
     return (
         <>
         <nav>
-        <div>
+        <div id="nav-div">
           { loggedInUser ?
           (
           <>
