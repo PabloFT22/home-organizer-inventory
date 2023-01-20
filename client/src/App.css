@@ -39,9 +39,22 @@
 
 
 #nav-div {
-  margin: 30px;
+  padding: 30px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  background-color: aquamarine;
+  justify-content: space-between;
 }
+
+.login-wraper {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #6b96ec;
+}
+
+/* * {
+  border: 1px solid red;
+} */

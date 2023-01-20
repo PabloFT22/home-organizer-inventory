@@ -1,50 +1,36 @@
 // import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
-function Items({loggedInUserItems}) {
-
-    // const handleOnClick =(e)=>{
-    //     e.preventDefault();
-        
-    // }
-
-    // const allItems = loggedInUserItems.map((eachItem)=>{
-    //     return(<li ><h4 >{eachItem.name}</h4></li>)
-        
-    //     })
-
-    // console.log(loggedInUserItems[0])
-
-    // fetch(`items/${loggedInUserItems[0].id}`, {
-    //     method:"PATCH",
-    //     headers: {
-    //         "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(loggedInUserItems)
-    //     })
-    // .then(res => res.json())
-    // .then(console.log)
+function Items({loggedInUserItems, newItem, setNewItem, handleNewItemSubmit, changeHandlerNewSnackInput, loggedInUserLocations}) {
 
 
 
 
     return (
         <>
-            <h1>Hello here are sll your items!</h1>
+            <h1>Hello here are all your items!</h1>
             <ul>
-
-
-                
                 {loggedInUserItems.map((eachItem)=>{
             return(<li ><h4 >{eachItem.name}</h4></li>)
-            
             })}
                 
             </ul>
-            <form>
-                <input type="name"name/>
+            <form onSubmit={handleNewItemSubmit}>
+                <select onChange={changeHandlerNewSnackInput}>
+                <option value={0}> Select a Woobly </option>
+                {
+                    loggedInUserLocations.map((eachLocation)=>{
+                        return(<option value={eachLocation.id}>{eachLocation.name}</option>)
+                    })
+                }
+                </select>
+                <label>Add Item</label>
+                <input onChange={changeHandlerNewSnackInput} name="name" value={newItem.name}/>
+                <input type="submit"/>
             </form>
-            {/* <button onClick={()=>{}}>Back to Locations</button> */}
+            <br/>
+            <br/>
+            <br/>
             <div>
                 <Link to="/locations">
                 <button>Back to Locations</button>

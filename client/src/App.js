@@ -95,6 +95,7 @@ function App() {
     updateNewLocationInfo({...newLocation, name: e.target.value})
   }
 
+  ////////////// New Location Post
   const submitHandlerNewLocation=(e)=>{
     e.preventDefault()
     fetch("/locations", {
@@ -116,9 +117,30 @@ function App() {
     })
   }
 
-  // if (!loggedInUser){
-  //   return null
-  // }
+  const [newItem, setNewItem] = useState({
+    name: "",
+    description: "",
+    image_url:"",
+    location_in_room: "",
+    location_id: "",
+    user_id: "",
+  })
+
+  const handleNewItemSubmit=()=>{
+    fetch("/items", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(newItem)
+    })
+    .then(r=>r.json())
+    .then(console.log)
+  }
+
+  const changeHandlerNewSnackInput =(e)=>{
+    setNewItem({...newItem, [e.target.name]: e.target.value})
+  }
+
+
   return (
 
     <> 
@@ -134,7 +156,7 @@ function App() {
           <Route path=":id" element={<OneLocation loggedInUser={loggedInUser} />} />
         </Route>}
         {/* <Route path="/locations" element={allLocationsOfOneUser}/> */}
-        <Route path="/items" element={<Items loggedInUserItems={loggedInUserItems}/>}/>
+        <Route path="/items" element={<Items loggedInUserItems={loggedInUserItems} handleNewItemSubmit={handleNewItemSubmit} changeHandlerNewSnackInput={changeHandlerNewSnackInput} setNewItem={setNewItem} newItem={newItem} loggedInUserLocations={loggedInUserLocations}/>}/>
         <Route exact path="/" element={<Home />} />
         
       </Routes>
