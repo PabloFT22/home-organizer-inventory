@@ -1,7 +1,9 @@
 // import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
-function Items({loggedInUserItems, newItem, setNewItem, handleNewItemSubmit, changeHandlerNewSnackInput, loggedInUserLocations}) {
+
+// probably do not need setnewitem here
+function Items({loggedInUserItems, newItem, setNewItem, handleNewItemSubmit, changeHandlerNewItemInput, loggedInUserLocations, loggedInUser}) {
 
 
 
@@ -16,16 +18,24 @@ function Items({loggedInUserItems, newItem, setNewItem, handleNewItemSubmit, cha
                 
             </ul>
             <form onSubmit={handleNewItemSubmit}>
-                <select onChange={changeHandlerNewSnackInput}>
-                <option value={0}> Select a Woobly </option>
+                <label>Add an Item</label>
+                <select onChange={changeHandlerNewItemInput} name="location_id">
+                <option value={0}> Select a Location </option>
                 {
                     loggedInUserLocations.map((eachLocation)=>{
                         return(<option value={eachLocation.id}>{eachLocation.name}</option>)
                     })
                 }
                 </select>
-                <label>Add Item</label>
-                <input onChange={changeHandlerNewSnackInput} name="name" value={newItem.name}/>
+                <input onChange={changeHandlerNewItemInput} name="name" placeholder="name"/>
+                <input onChange={changeHandlerNewItemInput} name="description" placeholder="description" />
+                <input onChange={changeHandlerNewItemInput} name="image_url" placeholder="image_url" />
+                <input onChange={changeHandlerNewItemInput} name="location_in_room" placeholder="location_in_room" />
+                <select onChange={ changeHandlerNewItemInput } name="user_id" >
+
+                <option value={0}> User Creating Item</option>
+                <option value={loggedInUser.id}>{loggedInUser.name}</option>
+                </select>
                 <input type="submit"/>
             </form>
             <br/>

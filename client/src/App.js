@@ -116,7 +116,7 @@ function App() {
 
     })
   }
-
+//  console.log(loggedInUser) // is there some way i can throw this into l127 as a value?
   const [newItem, setNewItem] = useState({
     name: "",
     description: "",
@@ -126,7 +126,8 @@ function App() {
     user_id: "",
   })
 
-  const handleNewItemSubmit=()=>{
+  const handleNewItemSubmit=(e)=>{
+    e.preventDefault()
     fetch("/items", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
@@ -136,7 +137,7 @@ function App() {
     .then(console.log)
   }
 
-  const changeHandlerNewSnackInput =(e)=>{
+  const changeHandlerNewItemInput =(e)=>{
     setNewItem({...newItem, [e.target.name]: e.target.value})
   }
 
@@ -148,15 +149,11 @@ function App() {
 
       <Routes>
         <Route path="/login" element={<Login handleChange={handleChange} handleLoginSubmit={handleLoginSubmit}/>} />
-        {/* <Route path="/locations" element={<Locations handleLogOut={handleLogOut} loggedInUserLocations={loggedInUserLocations} loggedInUser={loggedInUser} submitHandlerNewLocation={submitHandlerNewLocation} changeHandlerNewLocationName={changeHandlerNewLocationName} newLocation={newLocation}/>}>
-          <Route path=":id" element={<OneLocation />} />
-        </Route> */}
         {loggedInUser && <Route path="/locations">
           <Route index element={<Locations handleLogOut={handleLogOut} loggedInUserLocations={loggedInUserLocations} loggedInUser={loggedInUser} submitHandlerNewLocation={submitHandlerNewLocation} changeHandlerNewLocationName={changeHandlerNewLocationName} newLocation={newLocation}/>}/>
           <Route path=":id" element={<OneLocation loggedInUser={loggedInUser} />} />
         </Route>}
-        {/* <Route path="/locations" element={allLocationsOfOneUser}/> */}
-        <Route path="/items" element={<Items loggedInUserItems={loggedInUserItems} handleNewItemSubmit={handleNewItemSubmit} changeHandlerNewSnackInput={changeHandlerNewSnackInput} setNewItem={setNewItem} newItem={newItem} loggedInUserLocations={loggedInUserLocations}/>}/>
+        {loggedInUser && <Route path="/items" element={<Items loggedInUser={loggedInUser}loggedInUserItems={loggedInUserItems} handleNewItemSubmit={handleNewItemSubmit} changeHandlerNewItemInput={changeHandlerNewItemInput} setNewItem={setNewItem} newItem={newItem} loggedInUserLocations={loggedInUserLocations}/>}/>}
         <Route exact path="/" element={<Home />} />
         
       </Routes>
