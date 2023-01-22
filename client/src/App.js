@@ -141,6 +141,19 @@ function App() {
     setNewItem({...newItem, [e.target.name]: e.target.value})
   }
 
+  /////////////// Delete Item ////////////////
+  function handleDeleteItem(itemId) {
+    fetch(`/items/${itemId}`, {
+      method: "DELETE"
+    })
+    .then(response => response.json())
+    .then(data => {
+      // remove the deleted item from the loggedInUserItems array
+      setLoggedInUserItemss(loggedInUserItems.filter(item => item.id !== itemId));
+    })
+    .catch(error => console.log(error))
+  }
+
 
   return (
 
@@ -153,7 +166,7 @@ function App() {
           <Route index element={<Locations handleLogOut={handleLogOut} loggedInUserLocations={loggedInUserLocations} loggedInUser={loggedInUser} submitHandlerNewLocation={submitHandlerNewLocation} changeHandlerNewLocationName={changeHandlerNewLocationName} newLocation={newLocation}/>}/>
           <Route path=":id" element={<OneLocation loggedInUser={loggedInUser} />} />
         </Route>}
-        {loggedInUser && <Route path="/items" element={<Items loggedInUser={loggedInUser}loggedInUserItems={loggedInUserItems} handleNewItemSubmit={handleNewItemSubmit} changeHandlerNewItemInput={changeHandlerNewItemInput} setNewItem={setNewItem} newItem={newItem} loggedInUserLocations={loggedInUserLocations}/>}/>}
+        {loggedInUser && <Route path="/items" element={<Items setLoggedInUserItemss={setLoggedInUserItemss} handleDeleteItem={handleDeleteItem} loggedInUser={loggedInUser}loggedInUserItems={loggedInUserItems} handleNewItemSubmit={handleNewItemSubmit} changeHandlerNewItemInput={changeHandlerNewItemInput} setNewItem={setNewItem} newItem={newItem} loggedInUserLocations={loggedInUserLocations}/>}/>}
         <Route exact path="/" element={<Home />} />
         
       </Routes>
