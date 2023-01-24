@@ -43,46 +43,29 @@ function App() {
     ,[]
   )
 
-  const [userLogin, setUserLogin] = useState(
-    {
-      email: "",
-      password: ""
-    }
-  )
-  // console.log(userLogin)
+  // const [userLogin, setUserLogin] = useState(
+  //   {
+  //     email: "",
+  //     password: ""
+  //   }
+  // )
+  // // console.log(userLogin)
 
 
-  const handleChange=(e)=>{
-    // console.log(e)
-    setUserLogin({...userLogin, [e.target.name]: e.target.value})
-  }
 
-  const handleLoginSubmit=(e)=> {
-    e.preventDefault()
-
-      // console.log("🙌 BYEBUG")
-    fetch("/login", 
-    {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify(userLogin)
-    })
-    .then(response => response.json())
-    .then(loggedIn => {
-      // console.log(loggedIn)
-      setLoggedInUser(loggedIn)
-      setLoggedInUserLocations(loggedIn.locations)
-      navigate("/locations")
-    })
-  }
  
   const handleLogOut =()=>{
     fetch("/logout", {method: "DELETE"})
-    .then(r=> r.json())
-    .then(deleteResponse =>{
-      setLoggedInUser(null)
-      setLoggedInUserLocations([])
-      navigate("/login")
+    // .then(r=> r.json())
+    .then((deleteResponse) =>{
+      if (deleteResponse.ok){
+        setLoggedInUser(null)
+        setLoggedInUserLocations([])
+        navigate("/login")
+      }
+      // setLoggedInUser(null)
+      // setLoggedInUserLocations([])
+      // navigate("/login")
     })
   }
 
@@ -95,6 +78,7 @@ function App() {
     updateNewLocationInfo({...newLocation, name: e.target.value})
   }
 
+  
   ////////////// New Location Post
   const submitHandlerNewLocation=(e)=>{
     e.preventDefault()
@@ -128,13 +112,17 @@ function App() {
 
   const handleNewItemSubmit=(e)=>{
     e.preventDefault()
+    console.log(newItem)
     fetch("/items", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(newItem)
     })
     .then(r=>r.json())
-    .then(console.log)
+    .then((itemFromRails)=>{
+      console.log(itemFromRails)
+      setLoggedInUserItemss([...loggedInUserItems, itemFromRails])
+    })
   }
 
   const changeHandlerNewItemInput =(e)=>{
@@ -161,9 +149,9 @@ function App() {
       <Nav loggedInUser={loggedInUser}/>
 
       <Routes>
-        <Route path="/login" element={<Login handleChange={handleChange} handleLoginSubmit={handleLoginSubmit}/>} />
+        <Route path="/login" element={<Login loggedInUser={loggedInUser} setLoggedInUserItemss={setLoggedInUserItemss} setLoggedInUser={setLoggedInUser} setLoggedInUserLocations={setLoggedInUserLocations}/>} />
         {loggedInUser && <Route path="/locations">
-          <Route index element={<Locations handleLogOut={handleLogOut} loggedInUserLocations={loggedInUserLocations} loggedInUser={loggedInUser} submitHandlerNewLocation={submitHandlerNewLocation} changeHandlerNewLocationName={changeHandlerNewLocationName} newLocation={newLocation}/>}/>
+          <Route index element={<Locations setLoggedInUserLocations={setLoggedInUserLocations}  handleLogOut={handleLogOut} loggedInUserLocations={loggedInUserLocations} loggedInUser={loggedInUser} submitHandlerNewLocation={submitHandlerNewLocation} changeHandlerNewLocationName={changeHandlerNewLocationName} newLocation={newLocation}/>}/>
           <Route path=":id" element={<OneLocation loggedInUser={loggedInUser} />} />
         </Route>}
         {loggedInUser && <Route path="/items" element={<Items setLoggedInUserItemss={setLoggedInUserItemss} handleDeleteItem={handleDeleteItem} loggedInUser={loggedInUser}loggedInUserItems={loggedInUserItems} handleNewItemSubmit={handleNewItemSubmit} changeHandlerNewItemInput={changeHandlerNewItemInput} setNewItem={setNewItem} newItem={newItem} loggedInUserLocations={loggedInUserLocations}/>}/>}

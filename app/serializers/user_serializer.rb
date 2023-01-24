@@ -1,17 +1,15 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :name, :email, :address, :locations
+  attributes :id, :name, :email, :address, :location_names
 
   has_many :locations
   has_many :items
 
-  # def locations
-  #   object.locations.map{|location|
-  #     {
-  #       id: location.id,
-  #       name: location.name,
-  #       items: location.items
-  #     }
-  #   }
-  # end
+  def location_names
+    object.locations.map do |location|
+      { 
+        name: location.name
+      }
+    end
+  end
 
 end

@@ -2,6 +2,8 @@ class UsersController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :user_not_found
     rescue_from ActiveRecord::RecordInvalid, with: :render_invalid_response
 
+    # skip_before_action :authorized_user, only: [:create]
+
 # dry up this code
 
 def index

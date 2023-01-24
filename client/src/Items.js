@@ -30,8 +30,10 @@ function handleUpdateItemSubmit(e, itemId) {
 	})
 	.then(r => r.response.json())
 	.then(data => {
+		console.log(data)
 		// update the loggedInUserItems array with the updated item
 		setLoggedInUserItemss(prevState => {
+			console.log(prevState)
 			return prevState.map(item => {
 				if (item.id === itemId) {
           return {...item, ...updatedItem}
@@ -45,14 +47,87 @@ function handleUpdateItemSubmit(e, itemId) {
 }
 
 
+// function handleUpdateItemSubmit(e, itemId) {
+// 	e.preventDefault()
+// 	const updatedItem = {
+// 			name: e.target.name.value,
+// 			description: e.target.description.value,
+// 			image_url: e.target.image_url.value,
+// 			location_in_room: e.target.location_in_room.value
+// 	}
+// 	fetch(`/items/${itemId}`, {
+// 			method: "PATCH",
+// 			body: JSON.stringify(updatedItem),
+// 			headers: {
+// 					"Content-Type": "application/json"
+// 			}
+// 	})
+// 	.then(r => r.json())
+// 	.then(data => {
+// 			// update the loggedInUserItems state immediately with the updated item
+// 			setLoggedInUserItemss(prevState => {
+// 					return prevState.map(item => {
+// 							if (item.id === itemId) {
+// 									return {...item, ...updatedItem}
+// 							}
+// 							return item
+// 					})
+// 			})
+// 			setEditingItemId(null)
+// 	})
+// 	.catch(error => console.log(error))
+// }
+
+
+// function handleUpdateItemSubmit(e, itemId) {
+//   e.preventDefault()
+//   const updatedItem = {
+//     name: e.target.name.value,
+//     description: e.target.description.value,
+//     image_url: e.target.image_url.value,
+//     location_in_room: e.target.location_in_room.value
+//   }
+//   fetch(`/items/${itemId}`, {
+//     method: "PATCH",
+//     body: JSON.stringify(updatedItem),
+//     headers: {
+//       "Content-Type": "application/json"
+//     }
+//   })
+//   .then(r => r.json())
+//   .then(data => {
+//     console.log(data)
+//     // Make a new GET request to fetch the updated item
+//     fetch(`/items/${itemId}`)
+//     .then(r => r.json())
+//     .then(updatedItem => {
+//       // Update the state with the new data
+//       setLoggedInUserItemss(prevState => {
+//         return prevState.map(item => {
+//           if (item.id === itemId) {
+//             return updatedItem
+//           }
+//           return item
+//         })
+//       })
+//       setEditingItemId(null)
+//     })
+//   })
+//   .catch(error => console.log(error))
+// }
+
+
+
     return (
         <>
             <h1>Hello here are all your items!</h1>
             <ul>
                 {loggedInUserItems.map((eachItem)=>
 								{
+									// console.log(eachItem)
             			return(
 									<li><h3>{eachItem.name}</h3>
+									<p>{eachItem.category}</p>
 									<p>{eachItem.description}</p>
 									<p>{eachItem.location_in_room}</p>
 									<img src={eachItem.image_url} alt="product"/>

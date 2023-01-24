@@ -1,11 +1,13 @@
 class ItemsController < ApplicationController
 
     def index
-        render json: Item.all
+        @items = Item.alphabetize
+        render json: @items
     end
 
     def create      
         new_item = Item.new( item_params ) 
+        # new_item.user = current_user
         if new_item.save 
          render json: new_item
         else
@@ -17,7 +19,8 @@ class ItemsController < ApplicationController
     def destroy
         item = Item.find_by_id(params[:id])
         item.destroy
-        head :no_content
+        # head :no_content
+        render json: {}
      
     end
     # 👍

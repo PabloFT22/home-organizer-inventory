@@ -20,6 +20,16 @@ class LocationsController < ApplicationController
         end
     end
 
+    def update
+        update_location =  Location.find_by_id(params[:id])
+        if update_location
+            update_location.update(location_create_params)
+            render json: update_location
+        else
+            render json: { errors: invalid.record.errors.full_messages }, status: :unprocessable_entity
+        end
+    end
+
     private
 
     def location_create_params
