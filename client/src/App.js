@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import Items from './Items';
 import OneLocation from './OneLocation';
 import Nav from './Nav';
+import LoggedInNav from './LoggedInNav';
 
 function App() {
 
@@ -146,7 +147,11 @@ function App() {
   return (
 
     <> 
-      <Nav loggedInUser={loggedInUser}/>
+      { loggedInUser ?
+      <LoggedInNav handleLogOut={handleLogOut}/>
+      :
+      <Nav/>
+      }
 
       <Routes>
         <Route path="/login" element={<Login loggedInUser={loggedInUser} setLoggedInUserItemss={setLoggedInUserItemss} setLoggedInUser={setLoggedInUser} setLoggedInUserLocations={setLoggedInUserLocations}/>} />

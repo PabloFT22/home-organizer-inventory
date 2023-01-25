@@ -12,10 +12,10 @@ def create
         # render json: session[:user_id]
         render json: user, status: :ok
       else
-        render json: { error: "Check your password" }, status: :unauthorized  # try diff error message 
+        render json: { error: "❌ Check your password MOFO! ❌" }, status: :unauthorized  # try diff error message 
       end
     else
-      render json: { error: "email/Password Does'nt Match" }, status: :not_found
+      render json: { error: "Nice try! 🤧" }, status: :not_found
     end
 end
 

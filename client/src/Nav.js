@@ -1,29 +1,16 @@
 import { Link } from 'react-router-dom'
 
-function Nav(loggedInUser) {
+function Nav() {
+
+  // console.log(loggedInUser)
     return (
-        <>
-        <nav>
+      
+      <nav>
         <div id="nav-div">
-          { loggedInUser ?
-          (
-          <>
-          <Link to="/">Home</Link>
-          <Link to="/locations">Locations</Link>
-          <Link to="/items">Items</Link>
-          </>
-          )
-          :
-          (
-            <>
-            <Link to="/">Home</Link>
-            <Link to="/login">Login</Link>
-            </>
-          )
-            }
+            <Link className="nav-links" to="/">Home</Link>
+            <Link className="nav-links" to="/login">Login</Link>
         </div>
       </nav>
-        </>
     )
 }
 

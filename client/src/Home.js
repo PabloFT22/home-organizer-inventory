@@ -1,6 +1,6 @@
 function Home() {
     return (
-        <>
+        <div className="home-container">
             <h1>Hello!</h1>
         <p>Welcome to our new home inventory app! With this app, you'll be able to easily keep track of all the valuable and sentimental items in your home. 
         Whether you're moving, making insurance claims, or just need to know where to find something, this app makes it easy to keep track of everything.
@@ -17,7 +17,7 @@ function Home() {
         Our goal is to make it easy for you to protect and keep track of your valuable and sentimental items. We hope this app will give you peace of mind and 
         make your life a little bit easier. Thanks for choosing our app for your home inventory needs!
         </p>
-        </>
+        </div>
     )
 }
 

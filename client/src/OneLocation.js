@@ -26,16 +26,17 @@ function OneLocation({loggedInUser}) {
     const clickedLocation = userLocation[0].name
 
     return (
-        <>
+        <div className="each-location-container">
         <div>
             <Link to="/locations">
-            <button>Back to Locations</button>
+            <button className="back-to-locations-btn">Back to Locations</button>
             </Link>
         </div>
         
-        <h1>{clickedLocation}</h1>
-        <ul>{itemArray}</ul>
-        </>
+        <h1 id="clicked-location">{clickedLocation}</h1>
+        
+        <li className="item-array">{itemArray}</li>
+        </div>
     )
 }
 
