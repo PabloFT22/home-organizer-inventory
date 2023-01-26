@@ -27,15 +27,15 @@ function OneLocation({loggedInUser}) {
 
     return (
         <div className="each-location-container">
-        <div>
-            <Link to="/locations">
-            <button className="back-to-locations-btn">Back to Locations</button>
-            </Link>
-        </div>
+            <div>
+                <Link to="/locations">
+                <button className="back-to-locations-btn">Back to Locations</button>
+                </Link>
+            </div>
         
-        <h1 id="clicked-location">{clickedLocation}</h1>
-        
-        <li className="item-array">{itemArray}</li>
+            <h1 id="clicked-location">{clickedLocation}</h1>
+
+            <li className="item-array">{itemArray}</li>
         </div>
     )
 }

@@ -10,6 +10,8 @@ import OneLocation from './OneLocation';
 import Nav from './Nav';
 import LoggedInNav from './LoggedInNav';
 
+import Title from './Title';
+
 function App() {
 
   const [loggedInUser, setLoggedInUser] = useState(null)
@@ -17,6 +19,7 @@ function App() {
   const [loggedInUserLocations, setLoggedInUserLocations] = useState([])
   // console.log(loggedInUserLocations)
   const [loggedInUserItems, setLoggedInUserItemss] = useState([])
+  console.log(loggedInUserItems)
   
 
   let navigate = useNavigate();
@@ -29,32 +32,22 @@ function App() {
       .then(res=>res.json())
       .then(userAlreadyLoggedIn => {
         // console.log(userAlreadyLoggedIn)
-        if (userAlreadyLoggedIn) { 
+        if (userAlreadyLoggedIn) {
+          // console.log(userAlreadyLoggedIn) 
           setLoggedInUser(userAlreadyLoggedIn)
           setLoggedInUserLocations(userAlreadyLoggedIn.locations)
           setLoggedInUserItemss(userAlreadyLoggedIn.items)
         } else
-        {console.log("no one is logged in")}
-      
+        {console.log("no one is logged in")}   
       })
-    
-      // console.log(setLoggedInUserLocations)
-
-    }
-    ,[]
+    },[]
   )
+  
+  ////////// testing 
+  console.log(loggedInUser)
+  console.log(loggedInUserLocations)
+  console.log(loggedInUserItems)
 
-  // const [userLogin, setUserLogin] = useState(
-  //   {
-  //     email: "",
-  //     password: ""
-  //   }
-  // )
-  // // console.log(userLogin)
-
-
-
- 
   const handleLogOut =()=>{
     fetch("/logout", {method: "DELETE"})
     // .then(r=> r.json())
@@ -62,6 +55,7 @@ function App() {
       if (deleteResponse.ok){
         setLoggedInUser(null)
         setLoggedInUserLocations([])
+        // setLoggedInUserItemss([]) //added this to clear list of items 
         navigate("/login")
       }
       // setLoggedInUser(null)
@@ -152,6 +146,11 @@ function App() {
       :
       <Nav/>
       }
+
+      <div>
+        <Title />
+      </div>
+
 
       <Routes>
         <Route path="/login" element={<Login loggedInUser={loggedInUser} setLoggedInUserItemss={setLoggedInUserItemss} setLoggedInUser={setLoggedInUser} setLoggedInUserLocations={setLoggedInUserLocations}/>} />

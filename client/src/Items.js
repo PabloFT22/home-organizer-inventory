@@ -4,6 +4,12 @@ import { useState } from'react'
 
 function Items({loggedInUserItems, handleNewItemSubmit, changeHandlerNewItemInput, loggedInUserLocations, loggedInUser, handleDeleteItem, setLoggedInUserItemss}) {
 
+// const [items, setItems] = useState([]);
+// useEffect(() => {
+//   setItems(loggedInUserItems);
+// }, [loggedInUserItems]);
+// console.log(items)
+
 ///////// Update ///////////
 const [editingItemId, setEditingItemId] = useState(null)
 

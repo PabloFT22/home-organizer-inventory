@@ -12,6 +12,8 @@ function LoggedInNav({handleLogOut}) {
             <Link className="nav-links" to="/locations">Locations</Link>
             <Link className="nav-links" to="/items">Items</Link>
 
+            <p className="app-name-abbr">OCD</p>
+
             <button className="logout-btn" onClick={handleLogOut}>
                 Logout
             </button> 

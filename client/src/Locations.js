@@ -39,6 +39,8 @@ function Locations({loggedInUser, handleLogOut, loggedInUserLocations, submitHan
       });
   }
 
+  // console.log(loggedInUserLocations)
+
   return (
     <div className='locations-container'>
       <h1 className="locations-heading">Welcome to the Locations Portal</h1>
