@@ -1,8 +1,11 @@
 class ItemsController < ApplicationController
 
     def index
-        @items = Item.alphabetize
-        render json: @items
+        # @items = Item.alphabetize
+        # render json: @items
+
+        items = Item.all
+        render json: items
     end
 
     def create      
@@ -15,7 +18,6 @@ class ItemsController < ApplicationController
         end 
     end
 
-    # finish this ish
     def destroy
         item = Item.find_by_id(params[:id])
         item.destroy

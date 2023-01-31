@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import {useState} from 'react';
 
-function Login({setLoggedInUser, setLoggedInUserLocations}) {
+function Login({setLoggedInUser, setLoggedInUserLocations, setLoggedInUserItemss}) {
 
     let navigate = useNavigate();
 
@@ -40,6 +40,7 @@ function Login({setLoggedInUser, setLoggedInUserLocations}) {
                 res.json().then(userLogin =>{
                 setLoggedInUser(userLogin)
                 setLoggedInUserLocations(userLogin.locations)
+                setLoggedInUserItemss(userLogin.items)
                 navigate("/locations")
                 })
             } else {
@@ -69,19 +70,19 @@ function Login({setLoggedInUser, setLoggedInUserLocations}) {
 
     return (
         <div className="login-wraper">
-            <h1>Please Log In</h1>
+            <h1 id="login-h1" >Please Log In</h1>
                 <br/>
             <form onSubmit={handleLoginSubmit}>
-                <label>Email
+                <label className="login-label">Email
                 <input type="text" placeholder="email" onChange={handleChange} name="email"/>
                 </label>
-                <label>Password
+                <label className="login-label">Password
                 <input type="password" placeholder="password" onChange={handleChange} name="password"/>
                 </label>
-                <input type="submit" value="login" />
+                <input id="input-submit" type="submit" value="login" />
                 
             </form>
-            {errors ? <div>{errors}</div> : null} 
+            {errors ? <div id="error-message">{errors}</div> : null} 
 
 
         </div>

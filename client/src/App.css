@@ -38,7 +38,7 @@
 } */
 
 nav {
-  background-color: #333; /* dark gray background */
+  background-color: #004777; /* dark gray background */
   color: #fff; /* white text color */
   height: 50px; /* set a fixed height */
   display: flex; /* use flexbox to center the links */
@@ -68,7 +68,7 @@ nav {
   display:flex;
   flex-direction: column;
   align-items: center;
-  background-color: #6b96ec;
+  background-color: #004777;
 }
 
 .nav-links {
@@ -90,6 +90,12 @@ h1 {
   margin-bottom: 20px;
 }
 
+#login-h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: white;
+}
+
 form {
   display: flex;
   flex-wrap: wrap;
@@ -101,6 +107,13 @@ label {
   width: 100%;
   text-align: left;
   margin-bottom: 10px;
+}
+
+.login-label {
+  width: 100%;
+  text-align: left;
+  margin-bottom: 10px;
+  color: white;
 }
 
 input[type="text"],
@@ -168,7 +181,7 @@ input[type="password"] {
 
 #add-location-btn {
   width: 100px;
-  background-color: #4CAF50;
+  background-color: #EFD28D;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -178,7 +191,7 @@ input[type="password"] {
 }
 
 #add-location-btn:hover {
-  background-color: #45a049;
+  background-color: #c7af77;
 }
 
 #add-location-form-label {
@@ -191,7 +204,7 @@ input[type="password"] {
 
 input[type="submit"] {
   width: 100%;
-  background-color: #4CAF50;
+  background-color: #EFD28D;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -200,8 +213,19 @@ input[type="submit"] {
   cursor: pointer;
 }
 
+#input-submit {
+  width: 100%;
+  background-color: #EFD28D;
+  color: rgb(0, 0, 0);
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
 input[type="submit"]:hover {
-  background-color: #45a049;
+  background-color: #c7af77;
 }
 
 .error {
@@ -250,7 +274,7 @@ input[type="submit"]:hover {
 }
 
 .logout-btn {
-  background-color: #4CAF50; 
+  background-color: #A30000; 
   border: none;
   color: white;
   padding: 15px 32px;
@@ -283,7 +307,7 @@ input[type="submit"]:hover {
 
 
 .each-location-btn {
-  background-color: #8251d5; 
+  background-color: #00AFB5; 
   border: none;
   color: white;
   padding: 10px 20px;
@@ -349,7 +373,7 @@ input[type="submit"]:hover {
 #see-items-btn {
   margin: 10px;
   padding: 10px 20px;
-  background-color: #f44336;
+  background-color: #004777;
   color: white;
   border: none;
   border-radius: 5px;
@@ -379,7 +403,7 @@ img.item-info {
 #item-delete-btn {
   margin: 10px;
   padding: 10px 20px;
-  background-color: #f44336;
+  background-color: #A30000;
   color: white;
   border: none;
   border-radius: 5px;
@@ -390,7 +414,7 @@ img.item-info {
 .update-btn{
   margin: 10px;
   padding: 10px 20px;
-  background-color: #2fe475;
+  background-color: #FF7700;
   color: white;
   border: none;
   border-radius: 5px;
@@ -474,7 +498,6 @@ img.item-info {
 
 #add-item-submit-btn {
   width: 30%;
-  background-color: #4CAF50;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -492,7 +515,7 @@ img.item-info {
 } */
 
 .back-to-locations-btn {
-  background-color: #cf0bc8;
+  background-color: #004777;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -532,10 +555,10 @@ img.item-info {
 
 .title {
   font-family: 'Open Sans', sans-serif;
-  font-size: 40px;
+  font-size: 50px;
   text-align: center;
-  color: #7e338d;
-  font-weight: 600;
+  color: #FF7700;  /* <-- orange title */
+  font-weight: 900;
 }
 
 /* OCD */
@@ -544,9 +567,35 @@ img.item-info {
   font-size: 23px;
   font-weight: 600;
   margin: 10px;
-  color: #e24fff;
+  color: #FF7700;
   font-weight: 900;
 }
+
+/* home page */
+.home-container {
+  text-align: center;
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 20px;
+}
+
+.home-title {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.home-about {
+  font-size: 18px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+/* error message login */
+#error-message {
+  color: #FF7700;
+}
+
 
 
 /* * {

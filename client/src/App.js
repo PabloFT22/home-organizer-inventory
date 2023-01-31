@@ -42,6 +42,20 @@ function App() {
       })
     },[]
   )
+
+//tried this
+// useEffect(() => {
+
+//   fetch("/userInSession")
+//       .then(res=>res.json())
+//       .then(data=>{
+//         setLoggedInUserItemss(data.items)
+//       });
+// }, []);
+// console.log(loggedInUserItems)
+
+
+
   
   ////////// testing 
   console.log(loggedInUser)
@@ -153,7 +167,7 @@ function App() {
 
 
       <Routes>
-        <Route path="/login" element={<Login loggedInUser={loggedInUser} setLoggedInUserItemss={setLoggedInUserItemss} setLoggedInUser={setLoggedInUser} setLoggedInUserLocations={setLoggedInUserLocations}/>} />
+        <Route path="/login" element={<Login setLoggedInUserItemss={setLoggedInUserItemss} loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} setLoggedInUserLocations={setLoggedInUserLocations}/>} />
         {loggedInUser && <Route path="/locations">
           <Route index element={<Locations setLoggedInUserLocations={setLoggedInUserLocations}  handleLogOut={handleLogOut} loggedInUserLocations={loggedInUserLocations} loggedInUser={loggedInUser} submitHandlerNewLocation={submitHandlerNewLocation} changeHandlerNewLocationName={changeHandlerNewLocationName} newLocation={newLocation}/>}/>
           <Route path=":id" element={<OneLocation loggedInUser={loggedInUser} />} />

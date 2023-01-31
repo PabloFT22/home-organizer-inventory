@@ -15,7 +15,7 @@ class Item < ApplicationRecord
   #   self.save
   # end
 
-  def self.alphabetize
-    reorder(:name)
-  end
+  # def self.alphabetize
+  #   reorder(:name)
+  # end
 end
