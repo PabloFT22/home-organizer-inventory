@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import {useState} from 'react';
 
-function Login({setLoggedInUser, setLoggedInUserLocations, setLoggedInUserItemss}) {
+function Login({setLoggedInUser, setLoggedInUserLocations, setLoggedInUserItemss, setUpdate}) {
 
     let navigate = useNavigate();
 
@@ -20,8 +20,6 @@ function Login({setLoggedInUser, setLoggedInUserLocations, setLoggedInUserItemss
     
       const handleLoginSubmit=(e)=> {
         e.preventDefault()
-    
-          // console.log("🙌 BYEBUG")
         fetch("/login", 
         {
           method: "POST",

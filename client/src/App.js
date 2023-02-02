@@ -19,44 +19,24 @@ function App() {
   const [loggedInUserLocations, setLoggedInUserLocations] = useState([])
   // console.log(loggedInUserLocations)
   const [loggedInUserItems, setLoggedInUserItemss] = useState([])
-  console.log(loggedInUserItems)
+
+  // console.log(loggedInUserItems)
   
-
   let navigate = useNavigate();
-
-  useEffect(
-    ()=>{
-
-      // console.log("🙌 BYEBUG")
-      fetch("/userInSession")
-      .then(res=>res.json())
-      .then(userAlreadyLoggedIn => {
-        // console.log(userAlreadyLoggedIn)
-        if (userAlreadyLoggedIn) {
-          // console.log(userAlreadyLoggedIn) 
+  
+  useEffect(() => {
+    fetch("/userInSession").then((res) => {
+      if (res.ok) {
+        res.json().then((userAlreadyLoggedIn) => {
           setLoggedInUser(userAlreadyLoggedIn)
           setLoggedInUserLocations(userAlreadyLoggedIn.locations)
           setLoggedInUserItemss(userAlreadyLoggedIn.items)
-        } else
-        {console.log("no one is logged in")}   
-      })
-    },[]
-  )
+        });
+      } else 
+        console.log("no one is logged in dawg")
+    });
+  }, []);
 
-//tried this
-// useEffect(() => {
-
-//   fetch("/userInSession")
-//       .then(res=>res.json())
-//       .then(data=>{
-//         setLoggedInUserItemss(data.items)
-//       });
-// }, []);
-// console.log(loggedInUserItems)
-
-
-
-  
   ////////// testing 
   console.log(loggedInUser)
   console.log(loggedInUserLocations)
@@ -69,7 +49,7 @@ function App() {
       if (deleteResponse.ok){
         setLoggedInUser(null)
         setLoggedInUserLocations([])
-        // setLoggedInUserItemss([]) //added this to clear list of items 
+        setLoggedInUserItemss([]) //added this to clear list of items 
         navigate("/login")
       }
       // setLoggedInUser(null)
@@ -152,28 +132,29 @@ function App() {
   }
 
 
+  // console.log(loggedInUser)
+
   return (
 
     <> 
-      { loggedInUser ?
+      {/* { loggedInUser ?
       <LoggedInNav handleLogOut={handleLogOut}/>
       :
       <Nav/>
-      }
+      } */}
 
-      <div>
-        <Title />
-      </div>
-
-
+      <LoggedInNav loggedInUser={loggedInUser} handleLogOut={handleLogOut} />
+      {/* {loggedInUser && <LoggedInNav handleLogOut={handleLogOut}/>} */}
+      <Title />
       <Routes>
+      <Route exact path="/" element={<Home />} />
         <Route path="/login" element={<Login setLoggedInUserItemss={setLoggedInUserItemss} loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} setLoggedInUserLocations={setLoggedInUserLocations}/>} />
         {loggedInUser && <Route path="/locations">
           <Route index element={<Locations setLoggedInUserLocations={setLoggedInUserLocations}  handleLogOut={handleLogOut} loggedInUserLocations={loggedInUserLocations} loggedInUser={loggedInUser} submitHandlerNewLocation={submitHandlerNewLocation} changeHandlerNewLocationName={changeHandlerNewLocationName} newLocation={newLocation}/>}/>
           <Route path=":id" element={<OneLocation loggedInUser={loggedInUser} />} />
         </Route>}
         {loggedInUser && <Route path="/items" element={<Items setLoggedInUserItemss={setLoggedInUserItemss} handleDeleteItem={handleDeleteItem} loggedInUser={loggedInUser}loggedInUserItems={loggedInUserItems} handleNewItemSubmit={handleNewItemSubmit} changeHandlerNewItemInput={changeHandlerNewItemInput} setNewItem={setNewItem} newItem={newItem} loggedInUserLocations={loggedInUserLocations}/>}/>}
-        <Route exact path="/" element={<Home />} />
+        {/* <Route exact path="/" element={<Home />} /> */}
         
       </Routes>
     </>
