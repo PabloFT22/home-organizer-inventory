@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react';
 
-function Locations({loggedInUser, handleLogOut, loggedInUserLocations, submitHandlerNewLocation, changeHandlerNewLocationName, newLocation, setLoggedInUserLocations}) {
+function Locations({loggedInUser, loggedInUserLocations, submitHandlerNewLocation, changeHandlerNewLocationName, newLocation, setLoggedInUserLocations}) {
   
   const [updatingLocationId, setUpdatingLocationId] = useState(null);
   const [updateLocation, setUpdateLocation] = useState({});
@@ -31,43 +31,36 @@ function Locations({loggedInUser, handleLogOut, loggedInUserLocations, submitHan
             return updateLocation;
           }
           return location;
-          });
+        });
         setUpdatingLocationId(null);
         setUpdateLocation({});
         setLoggedInUserLocations(updatedLocations)
-        // update the state with updated locations
       });
   }
-
-  // console.log(loggedInUserLocations)
 
   return (
     <div className='locations-container'>
       <h1 className="locations-heading">Welcome to the Locations Portal</h1>
-
       {loggedInUser ? <h3>Hello, {loggedInUser.name}. Can we help you organize or find items?</h3> : console.log("yo")} 
-      {/* <button onClick={handleLogOut}>
-        Logout
-      </button>  */}
-        {loggedInUserLocations.map((eachLocation)=>{
-          return(
-            <div className="location-list-container">
-            <li className="location-list">
-            <Link to={`/locations/${eachLocation.id}`}>
-              <button className="each-location-btn">{eachLocation.name}</button>
-            </Link>
-              <button className="update-btn" onClick={() => handleUpdateClick(eachLocation.id, eachLocation)}>Update</button>
-            {updatingLocationId === eachLocation.id && (
-              <form className="hidden-update-form" onSubmit={(e) => handleUpdateSubmit(e, eachLocation.id)}>
-                <label className="hidden-form-label">Update Location</label>
-                <input className="hidden-form-input" onChange={handleUpdateChange} name="name" value={updateLocation.name}/>
-                <input className="hidden-form-submit" type="submit"/>
-              </form>
-            )}
-            </li>
-            </div>
-          )
-        })}
+      {loggedInUserLocations.map((eachLocation)=>{
+        return(
+          <div className="location-list-container">
+          <li className="location-list">
+          <Link to={`/locations/${eachLocation.id}`}>
+            <button className="each-location-btn">{eachLocation.name}</button>
+          </Link>
+          <button className="update-btn" onClick={() => handleUpdateClick(eachLocation.id, eachLocation)}>Update</button>
+          {updatingLocationId === eachLocation.id && (
+          <form className="hidden-update-form" onSubmit={(e) => handleUpdateSubmit(e, eachLocation.id)}>
+            <label className="hidden-form-label">Update Location</label>
+            <input className="hidden-form-input" onChange={handleUpdateChange} name="name" value={updateLocation.name}/>
+            <input className="hidden-form-submit" type="submit"/>
+          </form>
+          )}
+          </li>
+          </div>
+        )
+      })}
       <div>
         <Link to="/items">
           <button id="see-items-btn">See all Items</button>
@@ -82,8 +75,6 @@ function Locations({loggedInUser, handleLogOut, loggedInUserLocations, submitHan
     </div>
   )
 }
-
-
 
 export default Locations;
 

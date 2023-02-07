@@ -1,22 +1,15 @@
-// import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { useState } from'react'
 
 function Items({loggedInUserItems, handleNewItemSubmit, changeHandlerNewItemInput, loggedInUserLocations, loggedInUser, handleDeleteItem, setLoggedInUserItemss}) {
 
-// const [items, setItems] = useState([]);
-// useEffect(() => {
-//   setItems(loggedInUserItems);
-// }, [loggedInUserItems]);
-// console.log(items)
-
-///////// Update ///////////
 const [editingItemId, setEditingItemId] = useState(null)
 
 function handleUpdateItem(itemId) {
 	setEditingItemId(itemId)
 }
 
+/////// fix update bug
 function handleUpdateItemSubmit(e, itemId) {
 	e.preventDefault()
 	const updatedItem = {
@@ -34,16 +27,15 @@ function handleUpdateItemSubmit(e, itemId) {
 	})
 	.then(r => r.response.json())
 	.then(data => {
-		console.log(data)
 		// update the loggedInUserItems array with the updated item
 		setLoggedInUserItemss(prevState => {
 			console.log(prevState)
 			return prevState.map(item => {
 				if (item.id === itemId) {
           return {...item, ...updatedItem}
-			}
-			return item
-		})
+			  }
+		    return item
+		  })
 		})
 		setEditingItemId(null)
 	})
@@ -54,7 +46,6 @@ return (
   <div className="items-container">   
     <h1 id="header-list-items">Here is a list of all your items!</h1>
       {loggedInUserItems.map((eachItem)=> {
-				// console.log(eachItem)
         return(
 					<li id="items-list-container" >
             <h3 className="item-info">{eachItem.name}</h3>

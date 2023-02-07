@@ -1,8 +1,8 @@
 function Home() {
-    return (
-        <div className="home-container">
-            <h1 className="home-title">Hello!</h1>
-        <p className="home-about">Welcome to our new home inventory app! With this app, you'll be able to easily keep track of all the valuable and sentimental items in your home. 
+  return (
+    <div className="home-container">
+      <h1 className="home-title">Hello!</h1>
+      <p className="home-about">Welcome to our new home inventory app! With this app, you'll be able to easily keep track of all the valuable and sentimental items in your home. 
         Whether you're moving, making insurance claims, or just need to know where to find something, this app makes it easy to keep track of everything.
         
         Our app allows you to create an inventory of your items and keep detailed information about each item, including photos, descriptions, and
@@ -16,9 +16,9 @@ function Home() {
 
         Our goal is to make it easy for you to protect and keep track of your valuable and sentimental items. We hope this app will give you peace of mind and 
         make your life a little bit easier. Thanks for choosing our app for your home inventory needs!
-        </p>
-        </div>
-    )
+      </p>
+    </div>
+  )
 }
 
 export default Home;

@@ -7,20 +7,14 @@ import Locations from './Locations';
 import { useNavigate } from 'react-router-dom'
 import Items from './Items';
 import OneLocation from './OneLocation';
-import Nav from './Nav';
-import LoggedInNav from './LoggedInNav';
-
+import NavBar from './NavBar';
 import Title from './Title';
 
 function App() {
 
   const [loggedInUser, setLoggedInUser] = useState(null)
-  // console.log(loggedInUser)
   const [loggedInUserLocations, setLoggedInUserLocations] = useState([])
-  // console.log(loggedInUserLocations)
   const [loggedInUserItems, setLoggedInUserItemss] = useState([])
-
-  // console.log(loggedInUserItems)
   
   let navigate = useNavigate();
   
@@ -36,39 +30,31 @@ function App() {
         console.log("no one is logged in dawg")
     });
   }, []);
-
-  ////////// testing 
-  console.log(loggedInUser)
-  console.log(loggedInUserLocations)
-  console.log(loggedInUserItems)
+ 
+  // console.log(loggedInUser)
+  // console.log(loggedInUserLocations)
+  // console.log(loggedInUserItems)
 
   const handleLogOut =()=>{
     fetch("/logout", {method: "DELETE"})
-    // .then(r=> r.json())
-    .then((deleteResponse) =>{
-      if (deleteResponse.ok){
-        setLoggedInUser(null)
-        setLoggedInUserLocations([])
-        setLoggedInUserItemss([]) //added this to clear list of items 
-        navigate("/login")
-      }
-      // setLoggedInUser(null)
-      // setLoggedInUserLocations([])
-      // navigate("/login")
-    })
+      .then((deleteResponse) =>{
+        if (deleteResponse.ok){
+          setLoggedInUser(null)
+          setLoggedInUserLocations([])
+          setLoggedInUserItemss([])
+          navigate("/login")
+        }
+      })
   }
 
   const [newLocation, updateNewLocationInfo] = useState({
     name: ""
   })
-  // console.log(newLocation)
   
   const changeHandlerNewLocationName=(e)=>{
     updateNewLocationInfo({...newLocation, name: e.target.value})
   }
-
   
-  ////////////// New Location Post
   const submitHandlerNewLocation=(e)=>{
     e.preventDefault()
     fetch("/locations", {
@@ -78,18 +64,15 @@ function App() {
     })
     .then(r=>r.json())
     .then(newLocationFromBackend =>{
-
       fetch("/fresh_bath_of_user_locations")
         .then(r => r.json())
         .then(freshBatchOfLocations => setLoggedInUserLocations(freshBatchOfLocations))
-
         updateNewLocationInfo({
           name: ""
         })
-
     })
   }
-//  console.log(loggedInUser) // is there some way i can throw this into l127 as a value?
+
   const [newItem, setNewItem] = useState({
     name: "",
     description: "",
@@ -101,7 +84,6 @@ function App() {
 
   const handleNewItemSubmit=(e)=>{
     e.preventDefault()
-    console.log(newItem)
     fetch("/items", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
@@ -109,7 +91,6 @@ function App() {
     })
     .then(r=>r.json())
     .then((itemFromRails)=>{
-      console.log(itemFromRails)
       setLoggedInUserItemss([...loggedInUserItems, itemFromRails])
     })
   }
@@ -118,7 +99,6 @@ function App() {
     setNewItem({...newItem, [e.target.name]: e.target.value})
   }
 
-  /////////////// Delete Item ////////////////
   function handleDeleteItem(itemId) {
     fetch(`/items/${itemId}`, {
       method: "DELETE"
@@ -131,20 +111,9 @@ function App() {
     .catch(error => console.log(error))
   }
 
-
-  // console.log(loggedInUser)
-
   return (
-
     <> 
-      {/* { loggedInUser ?
-      <LoggedInNav handleLogOut={handleLogOut}/>
-      :
-      <Nav/>
-      } */}
-
-      <LoggedInNav loggedInUser={loggedInUser} handleLogOut={handleLogOut} />
-      {/* {loggedInUser && <LoggedInNav handleLogOut={handleLogOut}/>} */}
+      <NavBar loggedInUser={loggedInUser} handleLogOut={handleLogOut} />
       <Title />
       <Routes>
       <Route exact path="/" element={<Home />} />
@@ -153,14 +122,10 @@ function App() {
           <Route index element={<Locations setLoggedInUserLocations={setLoggedInUserLocations}  handleLogOut={handleLogOut} loggedInUserLocations={loggedInUserLocations} loggedInUser={loggedInUser} submitHandlerNewLocation={submitHandlerNewLocation} changeHandlerNewLocationName={changeHandlerNewLocationName} newLocation={newLocation}/>}/>
           <Route path=":id" element={<OneLocation loggedInUser={loggedInUser} />} />
         </Route>}
-        {loggedInUser && <Route path="/items" element={<Items setLoggedInUserItemss={setLoggedInUserItemss} handleDeleteItem={handleDeleteItem} loggedInUser={loggedInUser}loggedInUserItems={loggedInUserItems} handleNewItemSubmit={handleNewItemSubmit} changeHandlerNewItemInput={changeHandlerNewItemInput} setNewItem={setNewItem} newItem={newItem} loggedInUserLocations={loggedInUserLocations}/>}/>}
-        {/* <Route exact path="/" element={<Home />} /> */}
-        
+      {loggedInUser && <Route path="/items" element={<Items setLoggedInUserItemss={setLoggedInUserItemss} handleDeleteItem={handleDeleteItem} loggedInUser={loggedInUser}loggedInUserItems={loggedInUserItems} handleNewItemSubmit={handleNewItemSubmit} changeHandlerNewItemInput={changeHandlerNewItemInput} setNewItem={setNewItem} newItem={newItem} loggedInUserLocations={loggedInUserLocations}/>}/>}  
       </Routes>
     </>
-
-  );
-    
+  );   
 }
 
 export default App;

@@ -28,15 +28,6 @@
   color: #61dafb;
 }
 
-
-/* #nav-div {
-  padding: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: aquamarine;
-} */
-
 nav {
   background-color: #004777; /* dark gray background */
   color: #fff; /* white text color */
@@ -125,44 +116,6 @@ input[type="password"] {
   border: 2px solid #ccc;
   border-radius: 4px;
 }
-
-/* .add-location-input {
-  width: 50%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  box-sizing: border-box;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-}
-*/
-
-/* .add-location-input{
-
-} */
-
-/*
-
-#add-location-btn {
-  width: 100%;
-  background-color: #4CAF50;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-*/
-
-/* #add-location-btn:hover {
-  background-color: #45a049;
-}
-
-#add-location-btn {
-  background-color:#6b96ec;
-  max-width: 10%;
-  height: 10%;
-} */
 
 #add-location-form {
   display: flex;
@@ -286,10 +239,7 @@ input[type="submit"]:hover {
 
 }
 
-
 /* list locations and hidden form */
-
-
 
 .location-list-container {
   width: 60%;
@@ -298,13 +248,10 @@ input[type="submit"]:hover {
   padding: 10px;
 }
 
-
 .location-list {
   list-style: none;
   margin: 10px 0;
 }
-
-
 
 .each-location-btn {
   background-color: #00AFB5; 
@@ -319,6 +266,7 @@ input[type="submit"]:hover {
 }
 
 /* shared items/locations components */
+
 .update-btn {
   background-color: #f44336; 
   border: none;
@@ -338,6 +286,7 @@ input[type="submit"]:hover {
 }
 
 /* shared items/locations components */
+
 .hidden-form-input {
   width: 40%;
   padding: 12px 20px;
@@ -348,6 +297,7 @@ input[type="submit"]:hover {
 }
 
 /* shared items/locations components */
+
 .hidden-form-submit {
   width: 20%;
   background-color: #841e30; 
@@ -358,17 +308,6 @@ input[type="submit"]:hover {
   border-radius: 4px;
   cursor: pointer;
 } 
-
-/* #see-items-btn {
-  background-color: #ff8912; 
-  color: white;
-  border-radius: 4px;
-  border: none;
-  cursor: pointer;
-  padding: 5px 60px;
-  margin: 20px;
-  width: 50%;
-} */
 
 #see-items-btn {
   margin: 10px;
@@ -383,6 +322,7 @@ input[type="submit"]:hover {
 }
 
 /* items component only */
+
 #items-list-container {
   display: flex;
   flex-direction: column;
@@ -506,14 +446,6 @@ img.item-info {
   cursor: pointer;
 }
 
-/* back to locations btn */
-/* #back-btn-container {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 10px;
-} */
-
 .back-to-locations-btn {
   background-color: #004777;
   color: white;
@@ -531,20 +463,6 @@ img.item-info {
   padding: 10px;
   background-color: #f2f2f2;
 }
-
-/* .back-to-locations-btn {
-  background-color: blue;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  text-decoration: none;
-} */
-
-/* #clicked-location {
-  font-size: 24px;
-  font-weight: bold;
-  margin-top: 20px;
-} */
 
 .item-array {
   list-style: none;
